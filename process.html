@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+        <meta charset="utf-8">
+
+        <body>
+            <h4>Process Overview</h4><br>
+
+            <h4>Movement Basics</h4><br>
+
+            My process started with simple movements and interactions with other variables associated with<br>
+            the primary player character mockups via tinkeing with what is known as a "2D Collider" and "2D Rigidbody"<br>
+            Two elements which provide a gameobject (asset) with sensory appratus to detect others (collider) and <br>
+            access to gravity and a rigid composition (rigidbody). 
+            <br><br>
+            For this I created a simple cube, included a rigidbody, box collider, and space for a simple movemnt<br>
+            script within the editor sidebar, then froze the z rotation (ability to rotate) within the rigidbody as to<br>
+            prevent unwanted turning of the player character. Then within my code I invoked both aspects va the "public" <br>
+            tag and began to program basic movemnts utlising a tool known as Vector3.
+            <br><br>
+            Vector3 is a tool which takes into account of the three variables of movement, that being the x, y, and z<br>
+            variables, via binding the tool of Vector3 to a variable named "pos" which in turn directed to the command of <br>
+            "transform.position"(changes position when given values), I was able to produce a simple few lines of movement code<br>
+            <br><br>
+            
+            if (Input.GetKey ("w")) {<br>
+                pos.y += runSpeed * Time.deltaTime;<br>
+            }<br>
+            if (Input.GetKey ("s")) {<br>
+                pos.y -= runSpeed * Time.deltaTime;<br>
+            }<br>
+            if (Input.GetKey ("d")) {<br>
+                pos.x += runSpeed * Time.deltaTime;<br>
+            }<br>
+            if (Input.GetKey ("a")) {<br>
+                pos.x -= runSpeed * Time.deltaTime;<br>
+            }<br>
+
+            <br><br>
+            
+            This code served as the framework for my entire movement system and a simple explanation of the code is as follows.<br>
+            The engine first checks for a spesific key input utilising the Input.GetKey command, then changes the subesquent values or "pos"<br>
+            of the player object by the value of speed (a public variable within the code which presides over the playerobject's movement speed)<br>
+            multiplied by the time (time.deltatime = continious timer starting whereby the command was issued) the key was pressed.<br>
+            
+            <h4>Attack Basics</h4><br>
+
+            That was it for the movement, now it is time for the combat system. For which I decided to make each character fire out projectiles at eachother.<br>
+            For which I created a "prefab" or prefabrication, an asset which I can replecate for as many times as I required.<br>
+            This resulted in the "projectile prefab", the essential template for our projectiles whereby I utilised similar code in comparisin to my<br>
+            movement code with the only difference being that it was on a forever loop and depended upon where it was spawned and facing<br>
+            rb.velocity = transform.right*speed; (velocity, movement, is determined by the projectile going right(determined by player dir) * speed value).
+            <br><br>
+            After which I created a point in which the projectile was to spawn, put it under the player object within the tasks/asset manager as to<br>
+            pair their movements and positions relative to eachother, positioned it a tiny bit in front of the player, and set it so that every time <br>
+            that the G (or M, I mirrored the controls for player 1 onto player 2) key was pressed it spawned, or (Instantiated) a player object<br>
+            facing the direction the shooting position was facing. (Instantiate(bulletPrefab, shootingPoint.position, transform.rotation);)<br>
+            I then placed the instantiate command within a void of it's own for easy invoking of the function.
+            <br><br>
+            I also then created a command where when the F key (or N key for P2) was pressed, the player would rotate (or more reflect) itself 180 degrees <br>
+            across or around the z axsis, essentialy enabling the player to turn around and shoot projectiles behind themselves.<br>
+            I also made it so when projectiles contacted something rb.OnTriggerEnter2D they would delete themselves.
+            <br>
+
+            <h4>Animations</h4><br>
+
+            Finaly after which I downloaded a free to use set of player sprites, cut them out of a sheet utilisng unity's sprite-editor<br>
+            , and bound each sprite to a spesific action of the player, for example, when the vertical speed, or movement rate went over <br>
+            the value of 5, the player would play a "upwards movement" animation or when the G or fire key was pressed, the player would<br>
+            simltaniously summon a projectile and play a "casting" animation.
+
+            <br><br>
+
+            Each animation would then re-rount back to the "idle" or defalut animation which will start playing at the start with no instigator<br>
+            In order to invoke the animations, I created an animator controller (or animation mindmap) and animator (mindmap -> animation) and utilised the <br>
+            command of Animator.setTrigger(); and Animator.setFloat(); in order to provide the animator of the player the exact values of it's speed<br>
+            (Math.abs(vSpeed/hSpeed) or exact value (no -'s) of the speed) and if the fire/cast key was clicked.
+            <br><br>
+            That was it for the most part, and at this point I mirrored each script onto player two.
+            <br>
+
+            <h4>Combat</h4><br>
+
+            For the final combat system, I just created a public float for both players which dictated a set amounf of 12 hit points each<br>
+            , I then set it to when each player's rigidbody was triggered (felt collision) with the command OnTriggerEnter2D, the health points would<br>
+            subtract by 1, eventualy dropping to zero whereby at that point the player would dissapear.
+            <br>
+
+            <h4>Map</h4><br>
+            
+            There was not much for the map, I primarily just pasted some rock assets within the enviroment and set a border around which the player<br>
+            could not escape, I also layered the player to be above the rock-textures as to avoid unrealistic means of interaction between the two textures.
+            <br>
+
+            <h4>Exporting</h4><br>
+            
+            I then exported the game with a title texture I stole from a unused player model and named it "wizard battle 1".
+    
+            <div><ul>
+                <li><a href = "index.html"><h4>Return to Home Page</h4></a></li>
+    
+            </ul>
+
+            </div>
+        </body>
+   
+    </head>
+    
+
+
+
+</html>
